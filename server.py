@@ -3,7 +3,9 @@ import asyncpg
 import os
 from dotenv import load_dotenv
 load_dotenv()
-mcp = FastMCP("PostgreSQL MCP Server")
+# mcp = FastMCP("PostgreSQL MCP Server")
+
+mcp = FastMCP("PostgreSQL MCP Server", transport="http", port=int(os.getenv("PORT", 8000)))
 
 @mcp.tool()
 async def run_query(sql: str, ctx: Context) -> str:
