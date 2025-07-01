@@ -5,7 +5,15 @@ from dotenv import load_dotenv
 load_dotenv()
 # mcp = FastMCP("PostgreSQL MCP Server")
 
-mcp = FastMCP("PostgreSQL MCP Server", transport="http", port=int(os.getenv("PORT", 8000)))
+
+mcp = FastMCP("PostgreSQL MCP Server")
+
+if __name__ == "__main__":
+    mcp.run(
+        transport="http",
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 8000))
+    )
 
 @mcp.tool()
 async def run_query(sql: str, ctx: Context) -> str:
